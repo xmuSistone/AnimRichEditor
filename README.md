@@ -8,6 +8,7 @@ There exists other open-source rich editor projects in github, and i did run som
 * One project uses WebView + HTML, the inserted images looks so strange there.
 * One project uses EditText + ImageSpan, maybe it's highly efficiency, but it's not that stable and robust.
 * and so on..
+
 However, most of them are uncomfortable and inconvenient.<br><br>
 I implement this rich editor by using SrollView + LinearLayout. As you know, there may exist many views in this Editor, but you can never doubt that SrollView + LinearLayout could be quite smooth if you deal child-views reasonably. Besides, LinearLayout could add some special animations when adding/deleting child-views.
 ####captured images
