@@ -1,8 +1,8 @@
 # android-animate-RichEditor
 android rich editor which enables users to insert/delete bitmaps and text into edit-view with animations.
 ####target goal
-Recently, my product manager asks us android developers to implement this kind of interactive experience: a rich editor which enables users to insert/delete images and text at any where they want. However, almost everyone denies this demand at first, because our time remain is	at tension and this kind of demand may cause unpredicted out-of-control.<br><br>
-But for me, overcoming challenging difficulties makes me thrilling, and i enjoy it.  #(*^﹏^*)#
+Recently, my product manager asks us android developers to implement this kind of interactive experience: a rich editor which enables users to insert/delete images and text at any where they want. However, almost everyone denies this demand at first, because our time remain is	at tension and this kind of demand may cause unpredicted out-of-control.<br>
+However, overcoming challenging difficulties is thrilling, isn't it?
 ####compare with other rich editors
 There exists other open-source rich editor projects in github, and i did run some of them.    
 * One project uses WebView + HTML, the inserted images looks so strange there.
