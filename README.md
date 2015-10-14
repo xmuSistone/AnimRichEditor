@@ -5,9 +5,9 @@ Recently, my product manager asks us android developers to implement this kind o
 But for me, overcoming challenging difficulties makes me thrilling, and i enjoy it.  #(*^﹏^*)#
 ####compare with other rich editors
 There exists other open-source rich editor projects in github, and i did run some of them.    
-1. One project uses WebView + HTML, the inserted images looks so strange there.
-2. One project uses EditText + ImageSpan, maybe it's highly efficiency, but it's not that stable and robust.
-3. and so on..
+* One project uses WebView + HTML, the inserted images looks so strange there.
+* One project uses EditText + ImageSpan, maybe it's highly efficiency, but it's not that stable and robust.
+* and so on..
 However, most of them are uncomfortable and inconvenient.<br><br>
 I implement this rich editor by using SrollView + LinearLayout. As you know, there may exist many views in this Editor, but you can never doubt that SrollView + LinearLayout could be quite smooth if you deal child-views reasonably. Besides, LinearLayout could add some special animations when adding/deleting child-views.
 ####captured images
