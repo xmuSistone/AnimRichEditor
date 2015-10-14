@@ -17,9 +17,7 @@ Besides, LinearLayout could add some special animations when adding/deleting chi
 	 <img src="capture01.gif" width="300" height="500" />
 	 <img src="capture02.gif" width="300" height="500" />
 </td>
-####follow-ups
-source code will be committed later.
 ####demo apk download
-currently hold on.
+[apk download](RichEditor.apk) (right in this github project)
 ####extras
 later on, i will add some instructions for use the code.
