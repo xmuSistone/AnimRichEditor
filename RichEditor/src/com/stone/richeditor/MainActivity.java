@@ -3,6 +3,9 @@ package com.stone.richeditor;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import com.stone.richeditor.RichTextEditor.EditData;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -15,6 +18,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -58,7 +62,9 @@ public class MainActivity extends FragmentActivity {
 					// 打开相机
 					openCamera();
 				} else if (v.getId() == btn3.getId()) {
-
+					List<EditData> editList = editor.buildEditData();
+					// 下面的代码可以上传、或者保存，请自行实现
+					dealEditData(editList);
 				}
 			}
 		};
@@ -70,6 +76,20 @@ public class MainActivity extends FragmentActivity {
 		btn1.setOnClickListener(btnListener);
 		btn2.setOnClickListener(btnListener);
 		btn3.setOnClickListener(btnListener);
+	}
+
+	/**
+	 * 负责处理编辑数据提交等事宜，请自行实现
+	 */
+	protected void dealEditData(List<EditData> editList) {
+		for (EditData itemData : editList) {
+			if (itemData.inputStr != null) {
+				Log.d("RichEditor", "commit inputStr=" + itemData.inputStr);
+			} else if (itemData.imagePath != null) {
+				Log.d("RichEditor", "commit imgePath=" + itemData.imagePath);
+			}
+
+		}
 	}
 
 	protected void openCamera() {
@@ -115,6 +135,7 @@ public class MainActivity extends FragmentActivity {
 
 	/**
 	 * 添加图片到富文本剪辑器
+	 * 
 	 * @param imagePath
 	 */
 	private void insertBitmap(String imagePath) {
