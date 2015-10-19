@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.animation.LayoutTransition;
+import android.animation.LayoutTransition.TransitionListener;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,7 +41,8 @@ public class RichTextEditor extends ScrollView {
 	private OnFocusChangeListener focusListener; // 所有EditText的焦点监听listener
 	private EditText lastFocusEdit; // 最近被聚焦的EditText
 	private LayoutTransition mTransitioner; // 只在图片View添加或remove时，触发transition动画
-	private int editNormalPadding = 0;
+	private int editNormalPadding = 0; //
+	private int disappearingImageIndex = 0;
 
 	public RichTextEditor(Context context) {
 		this(context, null);
@@ -151,7 +155,10 @@ public class RichTextEditor extends ScrollView {
 	 * @type 删除类型 0代表backspace删除 1代表按红叉按钮删除
 	 */
 	private void onImageCloseClick(View view) {
-		allLayout.removeView(view);
+		if (!mTransitioner.isRunning()) {
+			disappearingImageIndex = allLayout.indexOfChild(view);
+			allLayout.removeView(view);
+		}
 	}
 
 	/**
@@ -297,7 +304,7 @@ public class RichTextEditor extends ScrollView {
 	private void setupLayoutTransitions() {
 		mTransitioner = new LayoutTransition();
 		allLayout.setLayoutTransition(mTransitioner);
-		/*mTransitioner.addTransitionListener(new TransitionListener() {
+		mTransitioner.addTransitionListener(new TransitionListener() {
 
 			@Override
 			public void startTransition(LayoutTransition transition,
@@ -308,26 +315,28 @@ public class RichTextEditor extends ScrollView {
 			@Override
 			public void endTransition(LayoutTransition transition,
 					ViewGroup container, View view, int transitionType) {
-				if (transitionType == LayoutTransition.CHANGE_DISAPPEARING) {
-					int childCount = allLayout.getChildCount();
-					if (view == allLayout.getChildAt(childCount - 1)) {
-						mergeEditText();
-					}
+				if (!transition.isRunning()
+						&& transitionType == LayoutTransition.CHANGE_DISAPPEARING) {
+					// transition动画结束，合并EditText
+					mergeEditText();
 				}
 			}
-		});*/
+		});
 		mTransitioner.setDuration(300);
 	}
 
 	/**
 	 * 图片删除的时候，如果上下方都是EditText，则合并处理
 	 */
-	/*protected void mergeEditText() {
-		int index1 = allLayout.indexOfChild(lastFocusEdit);
-		View nextView = allLayout.getChildAt(index1 + 1);
-		if (null != nextView && nextView instanceof EditText) {
+	private void mergeEditText() {
+		View preView = allLayout.getChildAt(disappearingImageIndex - 1);
+		View nextView = allLayout.getChildAt(disappearingImageIndex);
+		if (preView != null && preView instanceof EditText && null != nextView
+				&& nextView instanceof EditText) {
+			Log.d("LeiTest", "合并EditText");
+			EditText preEdit = (EditText) preView;
 			EditText nextEdit = (EditText) nextView;
-			String str1 = lastFocusEdit.getText().toString();
+			String str1 = preEdit.getText().toString();
 			String str2 = nextEdit.getText().toString();
 			String mergeText = "";
 			if (str2.length() > 0) {
@@ -338,11 +347,12 @@ public class RichTextEditor extends ScrollView {
 
 			allLayout.setLayoutTransition(null);
 			allLayout.removeView(nextEdit);
-			lastFocusEdit.setText(mergeText);
-			lastFocusEdit.setSelection(str1.length(), str1.length());
+			preEdit.setText(mergeText);
+			preEdit.requestFocus();
+			preEdit.setSelection(str1.length(), str1.length());
 			allLayout.setLayoutTransition(mTransitioner);
 		}
-	}*/
+	}
 
 	/**
 	 * dp和pixel转换
