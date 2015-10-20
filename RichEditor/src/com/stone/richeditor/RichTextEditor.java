@@ -318,7 +318,7 @@ public class RichTextEditor extends ScrollView {
 				if (!transition.isRunning()
 						&& transitionType == LayoutTransition.CHANGE_DISAPPEARING) {
 					// transition动画结束，合并EditText
-					mergeEditText();
+					// mergeEditText();
 				}
 			}
 		});
