@@ -13,10 +13,8 @@ However, most of them are uncomfortable and inconvenient.<br>
 I implement this rich editor by using SrollView + LinearLayout. As you know, there may exist many views in this Editor, but you can never doubt that SrollView + LinearLayout could be quite smooth if you deal child-views reasonably. <br>
 Besides, LinearLayout could add some special animations when adding/deleting child-views.
 #### captured images
-<td>
-	 <img src="capture01.gif" width="300" height="500" />
-	 <img src="capture02.gif" width="300" height="500" />
-</td>
+![PREVIEW](capture01.gif)
+![PREVIEW](capture02.gif)
 
 #### demo apk download
 [apk download](RichEditor.apk) (right in this github project)
